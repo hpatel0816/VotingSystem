@@ -1,5 +1,6 @@
 #Runoff Voting Project
 import randomElectionData as red
+from input import getInput
 
 #Initialize array for preferences (Max 100 voters, Max 9 categories)
 preferences = [[0 for i in range(5)]for j in range(3)]
@@ -58,23 +59,31 @@ def eliminate(minVotes, categoryCount, categoryArr):
 
 def runOffVoting(votingType):
   #Get user input on voters and category
-  voterNum = int(input("\nEnter the number of voters: "))
-  categoryNum = int(input("Enter the number of categories: "))
+  voterNum = getInput('integer', "\nEnter the number of voters: ")
+  categoryNum = getInput('integer', "Enter the number of categories: ")
 
   #Get the categories to vote on
   categoryList = []
   for i in range(categoryNum):
-    categoryName = input(f"Enter category #{i+1}:")
+    categoryName = getInput('string', f"Enter category #{i+1}:")
     category = Category(categoryName)
     categoryList.append(category)
 
   if votingType == 1:
     #Get user entered votes
-    for voter in range(voterNum):
+    voter = 0
+    while voter < voterNum:
       print(f"\nVoter {voter + 1}")
-      for rank in range(categoryNum):
-        choice = input(f"Rank {rank + 1}: ")
-        vote(voter, rank, choice, categoryNum, categoryList)
+      category = 0
+      while category < categoryNum:
+        choice = getInput('string', f"Rank {category + 1}: ")
+        if any(category.name == choice for category in categoryList):
+          vote(voter, category, choice, categoryNum, categoryList)
+          category += 1
+        else:
+          print("\nDoesn't match a category.\n")
+
+      voter += 1
 
   elif votingType == 2:
     #Generate random election data
@@ -100,10 +109,10 @@ def runOffVoting(votingType):
     #Check for tie
     tie = isTie(min, categoryNum, categoryList)
     if (tie):
-      userChoice = int(input("""\nThe voting is tied. 
+      userChoice = getInput('integer', """\nThe voting is tied. 
     Press 1 to see all winners. 
     Press 2 to rerun voting.
-    Enter your choice: """))
+    Enter your choice: """)
       if userChoice == 1:
         print("\nWinners:")
         for i in range(categoryNum):
@@ -111,7 +120,7 @@ def runOffVoting(votingType):
             print(categoryList[i].name)
         break
       elif userChoice == 2:
-        runOffVoting()
+        runOffVoting(votingType)
       else:
         print("An error occured")
 

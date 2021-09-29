@@ -1,21 +1,19 @@
+from input import getInput
 import fppVoting
 import runOffVoting
 
 def Welcome():
   print("Welcome to the Voting System.\n")
 
-  votingSystem = int(input("""What voting system do you want: \n
+  votingSystem = getInput('integer',"""What voting system do you want: \n
   1. First-past-the-post
   2. Runoff\n
-  Enter your choice: """))
+  Enter your choice: """)
 
-  '''voterNum = int(input("\nHow many voters in the election (Max: 1000): "))
-  candidates = int(input("How many candidates in the election (Max: 10): "))'''
-
-  votingType = int(input("""\nWhat kind of voting do you want: \next
-  1. User-entered votingSystem
+  votingType = getInput('integer', """\nWhat kind of voting do you want: \n
+  1. User-entered voting
   2. Randomly generated voting\n
-  Enter your choice: """))
+  Enter your choice: """)
 
   if votingSystem == 1:
     fppVoting.fppVoting(votingType)
@@ -26,3 +24,7 @@ def Welcome():
 
 if __name__ == "__main__":
   Welcome()
+
+'''Check and validateuser id
+
+only people with voting id can vote'''
