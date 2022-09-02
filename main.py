@@ -1,30 +1,39 @@
 from input import getInput
-import fppVoting
-import runOffVoting
+import elections
 
 def Welcome():
   print("Welcome to the Voting System.\n")
 
-  votingSystem = getInput('integer',"""What voting system do you want: \n
-  1. First-past-the-post
-  2. Runoff\n
-  Enter your choice: """)
+  #Initialize program functionality
+  while True:
+    votingSystem = getInput('integer',"""What voting system do you want: \n
+    1. General Election
+    2. Runoff Election\n
+    Enter your choice: """)
 
-  votingType = getInput('integer', """\nWhat kind of voting do you want: \n
-  1. User-entered voting
-  2. Randomly generated voting\n
-  Enter your choice: """)
+    if votingSystem == 1 or votingSystem == 2:
+      break
+    else:
+      print("\nEnter a valid input.\n\n")
 
+  while True:
+    votingType = getInput('integer', """\nWhat kind of voting do you want: \n
+    1. User-entered voting
+    2. Randomly generated voting\n
+    Enter your choice: """)
+
+    if votingType == 1 or votingType == 2:
+      break
+    else:
+      print("\nEnter a valid input.\n\n")
+
+  #Run election type
   if votingSystem == 1:
-    fppVoting.fppVoting(votingType)
+    elections.generalElection(votingType)
   elif votingSystem == 2:
-    runOffVoting.runOffVoting(votingType)
+    elections.runOffElection(votingType)
   else:
-    print("An error occured.")
+    print("\nAn error occured.")
 
 if __name__ == "__main__":
   Welcome()
-
-'''Check and validateuser id
-
-only people with voting id can vote'''

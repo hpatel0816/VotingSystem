@@ -6,18 +6,11 @@ def getInput(inputType, promptTxt):
       #integer prompt
       if inputType == 'integer':
         userInput = int(input(promptTxt))
-        if not userInput:
-          raise ValueError('empty input')
         return userInput
       #string prompt
       elif inputType == 'string':
         userInput = input(promptTxt)
-        if not userInput:
-          raise ValueError()
-        if any(char.isdigit() for char in userInput):
-          print("***Enter a valid string.***\n")
-        else:
-          return userInput
+        return userInput
     except ValueError:
       print(f"\n***Enter a valid {inputType}.***\n")
     except:
