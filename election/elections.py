@@ -1,8 +1,8 @@
 #Elections
 
-from input import getInput
-import randomElectionData as red
-import electionFunctions as election
+from utils.input import getInput
+import utils.randomElectionData as red
+from . import electionFunctions as election
 
 #Global variables
 maxVoters = 100

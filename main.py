@@ -1,5 +1,5 @@
-from input import getInput
-import elections
+from utils.input import getInput
+from election import elections
 
 def Welcome():
   print("Welcome to the Voting System.\n")
